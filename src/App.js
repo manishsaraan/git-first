@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import Select from "react-select";
+import InputRange from "react-input-range";
 import languages from "./assets/lang.json";
 import "./App.css";
 
-const options = [
-  { value: "chocolate", label: "Chocolate" },
-  { value: "strawberry", label: "Strawberry" },
-  { value: "vanilla", label: "Vanilla" }
-];
+const App = () => {
+  const [selectedLanguage, updateSelectedLanguage] = useState(null);
+  const [stars, updateStars] = useState(50);
 
-function App() {
-  const [selectedOption, updateSelectedOption] = useState(null);
+  const handleChange = selectedLanguage => {
+    updateSelectedLanguage(selectedLanguage);
+  };
 
-  const handleChange = selectedOption => {
-    updateSelectedOption(selectedOption);
-    console.log(`Option selected:`, selectedOption);
+  const exploreProjects = () => {
+    console.log(stars, selectedLanguage);
   };
 
   return (
@@ -26,18 +25,23 @@ function App() {
         <div className="row">
           <div className="col-6">
             <span>max stars:</span>
-            <div id="slider" />
+            <InputRange
+              maxValue={1000}
+              minValue={10}
+              value={stars}
+              onChange={value => updateStars(value)}
+            />
           </div>
           <div className="col-3">
             <span>language:</span>
             <Select
-              value={selectedOption}
+              value={selectedLanguage}
               onChange={handleChange}
               options={languages}
             />
           </div>
           <div className="col-3">
-            <button type="button" id="search">
+            <button type="button" id="search" onClick={exploreProjects}>
               search
             </button>
           </div>
@@ -46,6 +50,6 @@ function App() {
       <div id="output" className="row" />
     </div>
   );
-}
+};
 
 export default App;

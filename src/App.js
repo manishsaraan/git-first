@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Select from "react-select";
 import InputRange from "react-input-range";
 import languages from "./assets/lang.json";
+import fetchRepos from "./lib";
 import "./App.css";
 
 const App = () => {
@@ -14,6 +15,9 @@ const App = () => {
 
   const exploreProjects = () => {
     console.log(stars, selectedLanguage);
+    fetchRepos({ language: selectedLanguage.value, stars }, repos => {
+      console.log(repos);
+    });
   };
 
   return (

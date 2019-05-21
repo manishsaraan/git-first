@@ -3,11 +3,13 @@ import Select from "react-select";
 import InputRange from "react-input-range";
 import languages from "./assets/lang.json";
 import fetchRepos from "./lib";
+import Repo from "./components/Repo";
 import "./App.css";
 
 const App = () => {
   const [selectedLanguage, updateSelectedLanguage] = useState(null);
   const [stars, updateStars] = useState(50);
+  const [repos, updateRepos] = useState([]);
 
   const handleChange = selectedLanguage => {
     updateSelectedLanguage(selectedLanguage);
@@ -17,6 +19,7 @@ const App = () => {
     console.log(stars, selectedLanguage);
     fetchRepos({ language: selectedLanguage.value, stars }, repos => {
       console.log(repos);
+      updateRepos(repos.items);
     });
   };
 
@@ -51,7 +54,11 @@ const App = () => {
           </div>
         </div>
       </div>
-      <div id="output" className="row" />
+      <div id="output" className="row">
+        {repos.map(repo => (
+          <Repo repo={repo} key={repo.id} />
+        ))}
+      </div>
     </div>
   );
 };

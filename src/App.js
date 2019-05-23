@@ -30,7 +30,7 @@ const App = () => {
       </div>
       <div className="selector-container">
         <div className="row">
-          <div className="col-6">
+          <div className="col-6 offset-md-1">
             <span>max stars:</span>
             <InputRange
               maxValue={1000}
@@ -47,9 +47,14 @@ const App = () => {
               options={languages}
             />
           </div>
-          <div className="col-3">
-            <button type="button" id="search" onClick={exploreProjects}>
-              search
+          <div className="col-1">
+            <button
+              className="btn btn-secondary btn-lg explore-button"
+              type="button"
+              id="search"
+              onClick={exploreProjects}
+            >
+              Explore
             </button>
           </div>
         </div>

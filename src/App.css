@@ -102,3 +102,16 @@ body {
   margin-top: -2px;
   margin-right: 10px;
 }
+
+.input-range {
+  margin-top: 10px;
+}
+
+.explore-button {
+  margin-top: 18px;
+}
+
+.selector-container {
+  background-color: #e9ecef;
+  padding: 12px 0;
+}

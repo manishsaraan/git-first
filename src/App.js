@@ -4,6 +4,7 @@ import InputRange from "react-input-range";
 import languages from "./assets/lang.json";
 import fetchRepos from "./lib";
 import Repo from "./components/Repo";
+import Loader from "./components/Loader/Loader";
 import "./App.css";
 
 const App = () => {
@@ -60,6 +61,7 @@ const App = () => {
         </div>
       </div>
       <div id="output" className="row">
+        <Loader />
         {repos.map(repo => (
           <Repo repo={repo} key={repo.id} />
         ))}

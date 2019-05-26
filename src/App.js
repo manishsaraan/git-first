@@ -7,15 +7,25 @@ import "./App.css";
 
 const App = () => {
   const [repos, updateRepos] = useState([]);
+  const [showLoader, updateShowLoader] = useState(false);
 
   const exploreProjects = (stars, selectedLanguage) => {
-    console.log(stars, selectedLanguage);
+    updateShowLoader(true);
+
     fetchRepos({ language: selectedLanguage.value, stars }, repos => {
       console.log(repos);
       updateRepos(repos.items);
+      updateShowLoader(false);
     });
   };
 
+  const reposHtml =
+    repos.length === 0 ? (
+      <div className="no-repos col-12">No Repositories</div>
+    ) : (
+      repos.map(repo => <Repo repo={repo} key={repo.id} />)
+    );
+  console.log(reposHtml);
   return (
     <div className="container-fluid">
       <div className="hero-text jumbotron">
@@ -23,10 +33,7 @@ const App = () => {
       </div>
       <Controls exploreProjects={exploreProjects} />
       <div id="output" className="row">
-        <Loader />
-        {repos.map(repo => (
-          <Repo repo={repo} key={repo.id} />
-        ))}
+        {showLoader ? <Loader /> : reposHtml}
       </div>
     </div>
   );

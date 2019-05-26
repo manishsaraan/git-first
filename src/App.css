@@ -115,3 +115,10 @@ body {
   background-color: #e9ecef;
   padding: 12px 0;
 }
+
+.no-repos {
+  text-align: center;
+  vertical-align: middle;
+  line-height: 300px;
+  font-size: 20px;
+}

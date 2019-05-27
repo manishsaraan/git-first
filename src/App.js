@@ -10,6 +10,7 @@ const App = () => {
   const [showLoader, updateShowLoader] = useState(false);
 
   const exploreProjects = (stars, selectedLanguage) => {
+    console.log(selectedLanguage);
     updateShowLoader(true);
 
     fetchRepos({ language: selectedLanguage.value, stars }, repos => {

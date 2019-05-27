@@ -4,7 +4,7 @@ import InputRange from "react-input-range";
 import languages from "../../assets/lang.json";
 
 const Controls = props => {
-  const [selectedLanguage, updateSelectedLanguage] = useState(null);
+  const [selectedLanguage, updateSelectedLanguage] = useState({ value: "" });
   const [stars, updateStars] = useState(50);
 
   const handleChange = selectedLanguage => {

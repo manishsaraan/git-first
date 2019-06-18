@@ -1,7 +1,6 @@
 {
-  "name": "test",
+  "name": "search-good-first-issue",
   "version": "0.1.0",
-  "private": true,
   "dependencies": {
     "bootstrap": "^4.3.1",
     "date-fns": "^1.30.1",

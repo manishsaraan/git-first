@@ -25,9 +25,9 @@ const Repo = ({ repo }) => {
             {repo.name}
           </a>
         </div>
-        <div className="created-info row text-muted small">
+        <div className="created-info no-gutters row text-muted small">
           <div className="col-3">Build by</div>
-          <div className="col-3">{repo.owner.login}</div>
+          <div className="col-4">{repo.owner.login}</div>
           <span className="col-4">
             {dateFns.format(repo.created_at, "D MMM, YYYY")}
           </span>

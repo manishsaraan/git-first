@@ -1,4 +1,5 @@
 import React from "react";
+import dateFns from "date-fns";
 
 const Repo = ({ repo }) => {
   return (
@@ -8,7 +9,11 @@ const Repo = ({ repo }) => {
           <div className="profile-image">
             <img alt={repo.owner.login} src={repo.owner.avatar_url} />
           </div>
-          <a href={repo.owner.url}>
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={repo.owner.html_url}
+          >
             <div className="user-information">
               <h2>{repo.owner.login}</h2>
               <p>Visit Profile</p>
@@ -16,15 +21,16 @@ const Repo = ({ repo }) => {
           </a>
         </div>
         <div className="repo-name">
-          <a href="${repo.html_url}">{repo.name}</a>
+          <a target="_blank" rel="noopener noreferrer" href={repo.html_url}>
+            {repo.name}
+          </a>
         </div>
         <div className="created-info row text-muted small">
           <div className="col-3">Build by</div>
-          <div className="col-3">
-            {" "}
-            <a>{repo.owner.login}</a>
-          </div>
-          <span className="col-4">2 JUne 2036</span>
+          <div className="col-3">{repo.owner.login}</div>
+          <span className="col-4">
+            {dateFns.format(repo.created_at, "D MMM, YYYY")}
+          </span>
         </div>
         <div className="repo-description">{repo.description}</div>
         <div className="repo-info">
@@ -45,9 +51,13 @@ const Repo = ({ repo }) => {
             {repo.stargazers_count}
           </span>
           <span className="issues">
-            <a href='https://github.com/instrumenta/conftest/issues?q=is:issue+is:open+label:"good+first+issue"'>
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href='https://github.com/instrumenta/conftest/issues?q=is:issue+is:open+label:"good+first+issue"'
+            >
               <svg
-                className="octicon octicon-issue-opened"
+                className="issue-count"
                 viewBox="0 0 14 16"
                 version="1.1"
                 width="14"

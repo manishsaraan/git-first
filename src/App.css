@@ -5,12 +5,16 @@ body {
 }
 
 .hero-text {
-  font-size: 20px;
+  font-size: 25px;
 }
 
 .xslide-handle {
   height: 25px !important;
   width: 25px !important;
+}
+
+.issue-badge {
+  background-color: #7057ff !important;
 }
 
 .repo-container {

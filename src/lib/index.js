@@ -1,11 +1,17 @@
-const fetchRepos = ({ language, stars }, cb) => {
+export const fetchRepos = ({ language, stars }, cb) => {
   var apiUrl = "https://api.github.com/search/repositories";
 
-  var url = `${apiUrl}?q=language:${language.toLowerCase()}+good-first-issues:>0+stars:0..${stars}&sort=stars&order=desc`;
+  var url = `${apiUrl}?q=language:${language.toLowerCase()}+good-first-issues:>0+stars:0..${stars}&sort=stars&order=desc&page=1`;
   console.log(url);
   fetch(url)
     .then(data => data.json())
     .then(cb);
 };
 
-export default fetchRepos;
+export const saveUserPreference = (stars, language) => {
+  console.log(stars, language);
+  localStorage.setItem("user-pref", JSON.stringify({ stars, language }));
+};
+
+export const getUserPreference = () =>
+  JSON.parse(localStorage.getItem("user-pref"));

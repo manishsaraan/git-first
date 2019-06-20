@@ -1,7 +1,7 @@
-export const fetchRepos = ({ language, stars }, cb) => {
+export const fetchRepos = ({ language, stars, page }, cb) => {
   var apiUrl = "https://api.github.com/search/repositories";
 
-  var url = `${apiUrl}?q=language:${language.toLowerCase()}+good-first-issues:>0+stars:0..${stars}&sort=stars&order=desc&page=1`;
+  var url = `${apiUrl}?q=language:${language.toLowerCase()}+good-first-issues:>0+stars:0..${stars}&sort=stars&order=desc&page=${page}`;
   console.log(url);
   fetch(url)
     .then(data => data.json())

@@ -126,3 +126,8 @@ body {
   line-height: 300px;
   font-size: 20px;
 }
+
+.bookmark {
+  margin-right: 8px;
+  cursor: pointer;
+}

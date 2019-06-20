@@ -8,7 +8,9 @@ console.log(saveUserPreference);
 class App extends Component {
   state = {
     repos: [],
-    showLoader: false
+    showLoader: false,
+    page: 1,
+    totalPages: 0
   };
 
   trackScrolling = () => {
@@ -16,26 +18,37 @@ class App extends Component {
       console.log("scroll to bottom");
 
       const { stars, language } = getUserPreference();
-      const { repos } = this.state;
-      fetchRepos({ language, stars }, fetchedRepos => {
+      const { repos, page } = this.state;
+      fetchRepos({ language, stars, page }, fetchedRepos => {
         console.log(repos);
-        this.setState({ repos: [...repos, ...repos.items] });
+        this.setState({ repos: [...repos, ...fetchedRepos.items] });
       });
     }
   };
 
   exploreProjects = (stars, selectedLanguage) => {
     console.log(selectedLanguage);
+    const { page } = this.state;
 
     this.setState({ showLoader: true });
-    fetchRepos({ language: selectedLanguage.value, stars }, repos => {
-      console.log(repos);
+    fetchRepos(
+      { language: selectedLanguage.value, stars, page: 1 },
+      response => {
+        console.log(response);
+        const { total_count, items } = response;
+        const totalPages = Math.ceil(total_count / 30);
 
-      this.setState({ showLoader: false, repos: repos.items });
+        this.setState({
+          showLoader: false,
+          repos: items,
+          totalPages,
+          page: page + 1
+        });
 
-      saveUserPreference(stars, selectedLanguage.value);
-      document.addEventListener("scroll", this.trackScrolling);
-    });
+        saveUserPreference(stars, selectedLanguage.value);
+       // document.addEventListener("scroll", this.trackScrolling);
+      }
+    );
   };
 
   render() {

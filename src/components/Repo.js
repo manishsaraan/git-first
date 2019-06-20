@@ -1,5 +1,6 @@
 import React from "react";
 import dateFns from "date-fns";
+var FontAwesome = require("react-fontawesome");
 
 const Repo = ({ repo }) => {
   return (
@@ -9,16 +10,37 @@ const Repo = ({ repo }) => {
           <div className="profile-image">
             <img alt={repo.owner.login} src={repo.owner.avatar_url} />
           </div>
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={repo.owner.html_url}
-          >
-            <div className="user-information">
-              <h2>{repo.owner.login}</h2>
-              <p>Visit Profile</p>
+
+          <div className="user-information">
+            <div className="row no-gutters">
+              <div className="col-8">
+                <a
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href={repo.owner.html_url}
+                >
+                  <div>
+                    <h2>{repo.owner.login}</h2>
+                  </div>
+                  <p>Visit Profile</p>
+                </a>
+              </div>
+              <div className="col-4">
+                <span className="float-right">
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href='https://github.com/instrumenta/conftest/issues?q=is:issue+is:open+label:"good+first+issue"'
+                  >
+                    <FontAwesome name="external-link" />
+                  </a>
+                </span>
+                <span className="float-right bookmark">
+                  <FontAwesome name="bookmark" />
+                </span>
+              </div>
             </div>
-          </a>
+          </div>
         </div>
         <div className="repo-name">
           <a target="_blank" rel="noopener noreferrer" href={repo.html_url}>

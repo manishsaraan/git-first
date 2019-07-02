@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "bootstrap/dist/css/bootstrap.css";
-import "font-awesome/css/font-awesome.min.css";
 import "./index.css";
 import "react-input-range/lib/css/index.css";
 import App from "./App";

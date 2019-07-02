@@ -4,13 +4,14 @@ import Repo from "./components/Repo";
 import Loader from "./components/Loader/Loader";
 import Controls from "./components/Controls/Controls";
 import "./App.css";
-console.log(saveUserPreference);
+
 class App extends Component {
   state = {
     repos: [],
     showLoader: false,
     page: 1,
-    totalPages: 0
+    totalPages: 0,
+    bookmarkedRepos:[]
   };
 
   trackScrolling = () => {
@@ -51,13 +52,27 @@ class App extends Component {
     );
   };
 
+  handleBookmark = (repo) => {
+    let bookmarkedRepos = JSON.parse(localStorage.getItem("savedRepos")) || [];
+    const findRepoIndex = bookmarkedRepos.findIndex( bRepo => bRepo.id === repo.id);
+    console.log(findRepoIndex);
+    if (findRepoIndex > -1) {
+      bookmarkedRepos.splice(findRepoIndex, 1);
+    }else{
+      bookmarkedRepos = [ ...bookmarkedRepos, repo ];
+    }
+
+    localStorage.setItem("savedRepos", JSON.stringify(bookmarkedRepos));
+  };
+
   render() {
-    const { repos, showLoader } = this.state;
+    const { repos, showLoader, bookmarkedRepos } = this.state;
+    console.log(bookmarkedRepos);
     const reposHtml =
       repos.length === 0 ? (
         <div className="no-repos col-12">No Repositories</div>
       ) : (
-        repos.map(repo => <Repo repo={repo} key={repo.id} />)
+        repos.map(repo => <Repo repo={repo} handleBookmark={this.handleBookmark} key={repo.id} />)
       );
 
     return (

@@ -1,8 +1,6 @@
 import React from "react";
 import dateFns from "date-fns";
-var FontAwesome = require("react-fontawesome");
-
-const Repo = ({ repo }) => {
+const Repo = ({ repo, handleBookmark }) => {
   return (
     <div className="col-3 item-container">
       <div className="repo-container ">
@@ -32,11 +30,11 @@ const Repo = ({ repo }) => {
                     rel="noopener noreferrer"
                     href='https://github.com/instrumenta/conftest/issues?q=is:issue+is:open+label:"good+first+issue"'
                   >
-                    <FontAwesome name="external-link" />
+                <img src="https://res.cloudinary.com/stickflame/image/upload/v1562153462/external-link_xlnqnf.svg" alt={repo.name} />
                   </a>
                 </span>
-                <span className="float-right bookmark">
-                  <FontAwesome name="bookmark" />
+                <span className="float-right bookmark" onClick={() => handleBookmark(repo)}>
+                <img src="https://res.cloudinary.com/stickflame/image/upload/v1562153413/bookmark_ex3zi6.svg" alt={repo.name} />
                 </span>
               </div>
             </div>

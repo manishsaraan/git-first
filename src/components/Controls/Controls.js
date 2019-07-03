@@ -11,12 +11,14 @@ const Controls = props => {
     updateSelectedLanguage(selectedLanguage);
   };
 
-  const handleSubmit = () => props.exploreProjects(stars, selectedLanguage);
+  const showBookmarks = () => props.exploreProjects(true);
+
+  const handleSubmit = () => props.exploreProjects(false,stars, selectedLanguage);
 
   return (
     <div className="selector-container">
       <div className="row">
-        <div className="col-6 offset-md-1">
+        <div className="col-5 offset-md-1">
           <span>max stars:</span>
           <InputRange
             maxValue={1000}
@@ -42,6 +44,9 @@ const Controls = props => {
           >
             Explore
           </button>
+        </div>
+        <div  className="col-1">
+        <button onClick={showBookmarks}>BK</button>
         </div>
       </div>
     </div>

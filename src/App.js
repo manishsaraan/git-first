@@ -11,7 +11,7 @@ class App extends Component {
     showLoader: false,
     page: 1,
     totalPages: 0,
-    bookmarkedRepos:[]
+    showBookmars: false,
   };
 
   trackScrolling = () => {
@@ -27,8 +27,14 @@ class App extends Component {
     }
   };
 
-  exploreProjects = (stars, selectedLanguage) => {
+  exploreProjects = (showBookmars, stars, selectedLanguage) => {
     console.log(selectedLanguage);
+
+    if(showBookmars){
+      const bookmarkedRepos = JSON.parse(localStorage.getItem("savedRepos")) || [];
+      this.setState({repos: bookmarkedRepos, showBookmars: true });
+      return;
+    }
     const { page } = this.state;
 
     this.setState({ showLoader: true });
@@ -63,6 +69,10 @@ class App extends Component {
     }
 
     localStorage.setItem("savedRepos", JSON.stringify(bookmarkedRepos));
+
+    if(this.state.showBookmars){
+      this.setState({repos: bookmarkedRepos })
+    }
   };
 
   render() {

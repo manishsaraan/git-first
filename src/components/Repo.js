@@ -4,7 +4,7 @@ import bookmarked from '../assets/bookmarked.svg';
 import bookmark from '../assets/bookmark.svg';
 import externalLink from '../assets/external-link.svg';
 
-const Repo = ({ repo, handleBookmark }) => {
+const Repo = ({ repo, handleBookmark, isBookmarkedRepo }) => {
   return (
     <div className="col-3 item-container">
       <div className="repo-container ">
@@ -29,7 +29,7 @@ const Repo = ({ repo, handleBookmark }) => {
               </div>
               <div className="col-4 action-links">                
                 <span className="float-right bookmark" onClick={() => handleBookmark(repo)}>
-                <img src={bookmark} alt={repo.name} />
+                <img src={isBookmarkedRepo ? bookmarked : bookmark} alt={repo.name} />
                 </span>
                 <span className="float-right">
                   <a

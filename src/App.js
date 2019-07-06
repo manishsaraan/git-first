@@ -12,6 +12,7 @@ class App extends Component {
     page: 1,
     totalPages: 0,
     showBookmars: false,
+    bookmarkedRepos: []
   };
 
   trackScrolling = () => {
@@ -33,8 +34,12 @@ class App extends Component {
     this.setState({ showLoader: true });
 
     if(showBookmars){
-      const bookmarkedRepos = JSON.parse(localStorage.getItem("savedRepos")) || [];
-      this.setState({repos: bookmarkedRepos, showBookmars: true, showLoader: false });
+      let { bookmarkedRepos } = this.state;
+
+      if(bookmarkedRepos.length === 0){
+        bookmarkedRepos = JSON.parse(localStorage.getItem("savedRepos")) || [];
+      }
+      this.setState({showBookmars: true, bookmarkedRepos, showLoader: false});
       return;
     }
 
@@ -56,7 +61,6 @@ class App extends Component {
         });
 
         saveUserPreference(stars, selectedLanguage.value);
-       // document.addEventListener("scroll", this.trackScrolling);
       }
     );
   };
@@ -73,19 +77,31 @@ class App extends Component {
 
     localStorage.setItem("savedRepos", JSON.stringify(bookmarkedRepos));
 
-    if(this.state.showBookmars){
-      this.setState({repos: bookmarkedRepos })
-    }
+    this.setState({ bookmarkedRepos });
+
   };
 
+  isBookmarkedRepo = (repo) => {
+    const { showBookmars } = this.state;
+    if(showBookmars){
+      return true;
+    }
+
+    let {bookmarkedRepos} = this.state;
+    const findRepoIndex = bookmarkedRepos.findIndex( bRepo => bRepo.id === repo.id);
+
+    return findRepoIndex > -1 ? true : false;
+  }
+
   render() {
-    const { repos, showLoader, bookmarkedRepos } = this.state;
-    console.log(bookmarkedRepos);
+    const { repos, showLoader, bookmarkedRepos, showBookmars } = this.state;
+    const showRepos = showBookmars ? bookmarkedRepos : repos;
+
     const reposHtml =
-      repos.length === 0 ? (
+    showRepos.length === 0 ? (
         <div className="no-repos col-12">No Repositories</div>
       ) : (
-        repos.map(repo => <Repo repo={repo} handleBookmark={this.handleBookmark} key={repo.id} />)
+        showRepos.map(repo => <Repo repo={repo} isBookmarkedRepo={this.isBookmarkedRepo(repo)} handleBookmark={this.handleBookmark} key={repo.id} />)
       );
 
     return (

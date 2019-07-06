@@ -17,11 +17,11 @@ const Controls = props => {
   const showBookmarks = () => {
     updateIsBookmark(!isBookmark);
 
-    isBookmark ? props.exploreProjects(isBookmark) : props.exploreProjects(false,stars, selectedLanguage)
+    isBookmark ? props.exploreProjects(isBookmark) : props.exploreProjects(false, stars, selectedLanguage)
   };
 
-  const handleSubmit = () => props.exploreProjects(false,stars, selectedLanguage);
-  console.log("--------is", isBookmark)
+  const handleSubmit = () => props.exploreProjects(false, stars, selectedLanguage);
+
   return (
     <div className="selector-container">
       <div className="row">
@@ -48,6 +48,7 @@ const Controls = props => {
             type="button"
             id="search"
             onClick={handleSubmit}
+            disabled={!isBookmark}
           >
             Explore
           </button>

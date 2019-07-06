@@ -9,28 +9,12 @@ class App extends Component {
   state = {
     repos: [],
     showLoader: false,
-    page: 1,
     totalPages: 0,
     showBookmars: false,
     bookmarkedRepos: []
   };
 
-  trackScrolling = () => {
-    if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
-      console.log("scroll to bottom");
-
-      const { stars, language } = getUserPreference();
-      const { repos, page } = this.state;
-      fetchRepos({ language, stars, page }, fetchedRepos => {
-        console.log(repos);
-        this.setState({ repos: [...repos, ...fetchedRepos.items] });
-      });
-    }
-  };
-
   exploreProjects = (showBookmars, stars, selectedLanguage) => {
-    console.log(selectedLanguage);
-
     this.setState({ showLoader: true });
 
     if(showBookmars){
@@ -39,14 +23,14 @@ class App extends Component {
       if(bookmarkedRepos.length === 0){
         bookmarkedRepos = JSON.parse(localStorage.getItem("savedRepos")) || [];
       }
+
       this.setState({showBookmars: true, bookmarkedRepos, showLoader: false});
+      
       return;
     }
 
-    const { page } = this.state;
-
     fetchRepos(
-      { language: selectedLanguage.value, stars, page: 1 },
+      { language: selectedLanguage.value, stars},
       response => {
         console.log(response);
         const { total_count, items } = response;
@@ -56,8 +40,7 @@ class App extends Component {
           showLoader: false,
           repos: items,
           totalPages,
-          showBookmars: false,
-          page: page + 1
+          showBookmars: false
         });
 
         saveUserPreference(stars, selectedLanguage.value);

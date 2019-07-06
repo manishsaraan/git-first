@@ -30,14 +30,16 @@ class App extends Component {
   exploreProjects = (showBookmars, stars, selectedLanguage) => {
     console.log(selectedLanguage);
 
+    this.setState({ showLoader: true });
+
     if(showBookmars){
       const bookmarkedRepos = JSON.parse(localStorage.getItem("savedRepos")) || [];
-      this.setState({repos: bookmarkedRepos, showBookmars: true });
+      this.setState({repos: bookmarkedRepos, showBookmars: true, showLoader: false });
       return;
     }
+
     const { page } = this.state;
 
-    this.setState({ showLoader: true });
     fetchRepos(
       { language: selectedLanguage.value, stars, page: 1 },
       response => {
@@ -49,6 +51,7 @@ class App extends Component {
           showLoader: false,
           repos: items,
           totalPages,
+          showBookmars: false,
           page: page + 1
         });
 

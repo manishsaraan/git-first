@@ -1,12 +1,16 @@
 import React from "react";
 import dateFns from "date-fns";
+import bookmarked from '../assets/bookmarked.svg';
+import bookmark from '../assets/bookmark.svg';
+import externalLink from '../assets/external-link.svg';
+
 const Repo = ({ repo, handleBookmark }) => {
   return (
     <div className="col-3 item-container">
       <div className="repo-container ">
         <div className="profile-container">
           <div className="profile-image">
-            <img alt={repo.owner.login} src={repo.owner.avatar_url} />
+            <img alt={repo.owner.login} src={repo.owner.avatar_url} />           
           </div>
 
           <div className="user-information">
@@ -23,18 +27,18 @@ const Repo = ({ repo, handleBookmark }) => {
                   <p>Visit Profile</p>
                 </a>
               </div>
-              <div className="col-4">
+              <div className="col-4 action-links">                
+                <span className="float-right bookmark" onClick={() => handleBookmark(repo)}>
+                <img src={bookmark} alt={repo.name} />
+                </span>
                 <span className="float-right">
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
                     href='https://github.com/instrumenta/conftest/issues?q=is:issue+is:open+label:"good+first+issue"'
                   >
-                <img src="https://res.cloudinary.com/stickflame/image/upload/v1562153462/external-link_xlnqnf.svg" alt={repo.name} />
+                <img src={externalLink} alt={repo.name} />
                   </a>
-                </span>
-                <span className="float-right bookmark" onClick={() => handleBookmark(repo)}>
-                <img src="https://res.cloudinary.com/stickflame/image/upload/v1562153413/bookmark_ex3zi6.svg" alt={repo.name} />
                 </span>
               </div>
             </div>

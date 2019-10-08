@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { fetchRepos, saveUserPreference, getUserPreference } from "./lib";
+import { fetchRepos, saveUserPreference } from "./lib";
 import Repo from "./components/Repo";
 import Loader from "./components/Loader/Loader";
 import Controls from "./components/Controls/Controls";
@@ -14,48 +14,50 @@ class App extends Component {
     bookmarkedRepos: []
   };
 
-  exploreProjects = (showBookmars, stars, selectedLanguage) => {
+  exploreProjects = (showBookmars, { stars, searchText, selectedLanguage, isFirstIssue }) => {
     this.setState({ showLoader: true });
 
-    if(showBookmars){
+    // show locally saved repos
+    if (showBookmars) {
       let { bookmarkedRepos } = this.state;
 
-      if(bookmarkedRepos.length === 0){
+      if (bookmarkedRepos.length === 0) {
         bookmarkedRepos = JSON.parse(localStorage.getItem("savedRepos")) || [];
       }
 
-      this.setState({showBookmars: true, bookmarkedRepos, showLoader: false});
-      
+      this.setState({ showBookmars: true, bookmarkedRepos, showLoader: false });
+
       return;
+    } else {
+
+      fetchRepos(
+        { language: selectedLanguage.value, stars, searchText, isFirstIssue },
+        response => {
+          console.log(response);
+          const { total_count, items } = response;
+          const totalPages = Math.ceil(total_count / 30);
+
+          this.setState({
+            showLoader: false,
+            repos: items,
+            totalPages,
+            showBookmars: false
+          });
+
+          saveUserPreference(stars, selectedLanguage.value);
+        }
+      );
     }
-
-    fetchRepos(
-      { language: selectedLanguage.value, stars},
-      response => {
-        console.log(response);
-        const { total_count, items } = response;
-        const totalPages = Math.ceil(total_count / 30);
-
-        this.setState({
-          showLoader: false,
-          repos: items,
-          totalPages,
-          showBookmars: false
-        });
-
-        saveUserPreference(stars, selectedLanguage.value);
-      }
-    );
   };
 
   handleBookmark = (repo) => {
     let bookmarkedRepos = JSON.parse(localStorage.getItem("savedRepos")) || [];
-    const findRepoIndex = bookmarkedRepos.findIndex( bRepo => bRepo.id === repo.id);
+    const findRepoIndex = bookmarkedRepos.findIndex(bRepo => bRepo.id === repo.id);
     console.log(findRepoIndex);
     if (findRepoIndex > -1) {
       bookmarkedRepos.splice(findRepoIndex, 1);
-    }else{
-      bookmarkedRepos = [ ...bookmarkedRepos, repo ];
+    } else {
+      bookmarkedRepos = [...bookmarkedRepos, repo];
     }
 
     localStorage.setItem("savedRepos", JSON.stringify(bookmarkedRepos));
@@ -66,12 +68,12 @@ class App extends Component {
 
   isBookmarkedRepo = (repo) => {
     const { showBookmars } = this.state;
-    if(showBookmars){
+    if (showBookmars) {
       return true;
     }
 
-    let {bookmarkedRepos} = this.state;
-    const findRepoIndex = bookmarkedRepos.findIndex( bRepo => bRepo.id === repo.id);
+    let { bookmarkedRepos } = this.state;
+    const findRepoIndex = bookmarkedRepos.findIndex(bRepo => bRepo.id === repo.id);
 
     return findRepoIndex > -1 ? true : false;
   }
@@ -81,11 +83,11 @@ class App extends Component {
     const showRepos = showBookmars ? bookmarkedRepos : repos;
 
     const reposHtml =
-    showRepos.length === 0 ? (
+      showRepos.length === 0 ? (
         <div className="no-repos col-12">No Repositories</div>
       ) : (
-        showRepos.map(repo => <Repo repo={repo} isBookmarkedRepo={this.isBookmarkedRepo(repo)} handleBookmark={this.handleBookmark} key={repo.id} />)
-      );
+          showRepos.map(repo => <Repo repo={repo} isBookmarkedRepo={this.isBookmarkedRepo(repo)} handleBookmark={this.handleBookmark} key={repo.id} />)
+        );
 
     return (
       <div className="container-fluid">

@@ -97,7 +97,7 @@ class App extends Component {
           </p>
           <p>
             {" "}
-            Repositories will be fetched based on{" "}
+            Repositories can be fetched based on <b>language</b>,{" "}
             <span className="issue-badge badge badge-secondary">
               good first issue
             </span>{" "}

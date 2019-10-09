@@ -4,9 +4,12 @@ import './checkboxInput.css';
 const CheckboxInput = (props) => {
     console.log(props)
     return (
-        <div>
-            <input type="checkbox" checked={props.isFirstIssue} onChange={props.checkIsFirstIssue} />
-            Good first issue ?
+        <div className="checkbox-container">
+            <label className="checkbox-label" htmlFor="test">Good First Issue?</label>
+            <label className="checkbox">
+                <input type="checkbox" checked={props.isFirstIssue} onChange={props.checkIsFirstIssue} />
+                <span style={{ backgroundSize: 'contain' }}></span>
+            </label>
         </div>
     )
 };

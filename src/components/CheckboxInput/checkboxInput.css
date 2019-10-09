@@ -1,3 +1,33 @@
-.custom-control{
-    background-color: grey;
-  }
+.checkbox-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 7px;
+}
+
+.checkbox-label{
+  order: 2
+}
+
+.checkbox {
+    margin-right: 10px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.checkbox input {
+  position: relative;
+  z-index: -9999;
+}
+
+.checkbox span {
+  width: 20px;
+  height: 20px;
+  display: block;
+  background: url("https://img.icons8.com/ios-filled/50/000000/unchecked-checkbox.png");
+}
+
+.checkbox input:checked + span {
+  background: url("https://img.icons8.com/ios-filled/50/000000/checked-checkbox.png");
+}

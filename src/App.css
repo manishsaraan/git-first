@@ -111,9 +111,13 @@ body {
   margin-top: 10px;
 }
 
-.explore-button {
+.input-range__track {
+  background: #acacac;
 }
 
+.input-range__track--active {
+  background: #3f51b5 !important;
+}
 .selector-container {
   background-color: #e9ecef;
   padding: 12px 0;

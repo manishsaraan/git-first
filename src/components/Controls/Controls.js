@@ -7,7 +7,10 @@ import bookmark from '../../assets/bookmark.svg';
 import bookmarked from '../../assets/bookmarked.svg';
 
 const Controls = props => {
-  const [selectedLanguage, updateSelectedLanguage] = useState({ value: "" });
+  const [selectedLanguage, updateSelectedLanguage] = useState({
+    "label": "All Languages",
+    "value": ""
+  });
   const [stars, updateStars] = useState(50);
   const [searchText, updateSearchText] = useState("");
   const [isFirstIssue, updateIsFirstIssue] = useState(false);

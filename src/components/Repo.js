@@ -10,7 +10,7 @@ const Repo = ({ repo, handleBookmark, isBookmarkedRepo }) => {
       <div className="repo-container ">
         <div className="profile-container">
           <div className="profile-image">
-            <img alt={repo.owner.login} src={repo.owner.avatar_url} />           
+            <img alt={repo.owner.login} src={repo.owner.avatar_url} />
           </div>
 
           <div className="user-information">
@@ -27,17 +27,17 @@ const Repo = ({ repo, handleBookmark, isBookmarkedRepo }) => {
                   <p>Visit Profile</p>
                 </a>
               </div>
-              <div className="col-4 action-links">                
+              <div className="col-4 action-links">
                 <span className="float-right bookmark" onClick={() => handleBookmark(repo)}>
-                <img src={isBookmarkedRepo ? bookmarked : bookmark} alt={repo.name} />
+                  <img src={isBookmarkedRepo ? bookmarked : bookmark} alt={repo.name} />
                 </span>
                 <span className="float-right">
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href='https://github.com/instrumenta/conftest/issues?q=is:issue+is:open+label:"good+first+issue"'
+                    href={repo.html_url + '/issues?q=is:issue+is:open+label:"good+first+issue'}
                   >
-                <img src={externalLink} alt={repo.name} />
+                    <img src={externalLink} alt={repo.name} />
                   </a>
                 </span>
               </div>

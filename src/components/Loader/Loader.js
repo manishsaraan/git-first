@@ -6,6 +6,7 @@ const Loader = () => (
     <span className="dot" />
     <span className="dot" />
     <span className="dot" />
+    <span style={{ display: 'flex' }}>Fetching Repostories</span>
   </div>
 );
 

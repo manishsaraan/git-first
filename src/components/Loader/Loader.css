@@ -1,8 +1,7 @@
 div#wave {
   position: relative;
-  margin-top: 50vh;
+  margin-top: 50px;
   text-align: center;
-  width: 100px;
   height: 100px;
   margin-left: auto;
   margin-right: auto;

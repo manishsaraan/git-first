@@ -4,7 +4,13 @@ import bookmarked from '../assets/bookmarked.svg';
 import bookmark from '../assets/bookmark.svg';
 import externalLink from '../assets/external-link.svg';
 
-const Repo = ({ repo, handleBookmark, isBookmarkedRepo }) => {
+const Repo = ({ repo, handleBookmark, isBookmarkedRepo, isFirstIssue }) => {
+  let issuesLink = repo.html_url + '/issues';
+
+  if (isFirstIssue) {
+    issuesLink = issuesLink + '?q=is%3Aissue+is%3Aopen+label%3A"good+first+issue"';
+  }
+
   return (
     <div className="col-3 item-container">
       <div className="repo-container ">
@@ -35,7 +41,7 @@ const Repo = ({ repo, handleBookmark, isBookmarkedRepo }) => {
                   <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href={repo.html_url + '/issues?q=is:issue+is:open+label:"good+first+issue'}
+                    href={issuesLink}
                   >
                     <img src={externalLink} alt={repo.name} />
                   </a>
@@ -78,7 +84,7 @@ const Repo = ({ repo, handleBookmark, isBookmarkedRepo }) => {
             <a
               target="_blank"
               rel="noopener noreferrer"
-              href='https://github.com/instrumenta/conftest/issues?q=is:issue+is:open+label:"good+first+issue"'
+              href={issuesLink}
             >
               <svg
                 className="issue-count"

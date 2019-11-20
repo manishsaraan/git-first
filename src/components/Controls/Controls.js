@@ -1,19 +1,31 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import InputRange from "react-input-range";
-import CheckboxInput from '../CheckboxInput/CheckboxInput';
 import languages from "../../assets/lang.json";
 import bookmark from '../../assets/bookmark.svg';
 import bookmarked from '../../assets/bookmarked.svg';
 
+const labels = [
+  {
+    "label": "Good First Issue",
+    "value": "good-first-issues"
+  },
+  {
+    "label": "Help Wanted",
+    "value": "help-wanted-issues"
+  }
+]
 const Controls = props => {
   const [selectedLanguage, updateSelectedLanguage] = useState({
     "label": "All Languages",
     "value": ""
   });
+  const [selectedLabel, updateSeleectedLabel] = useState({
+    "label": "Good First Issue",
+    "value": "good-first-issues"
+  });
   const [stars, updateStars] = useState(50);
   const [searchText, updateSearchText] = useState("");
-  const [isFirstIssue, updateIsFirstIssue] = useState(false);
   const [isBookmark, updateIsBookmark] = useState(true);
 
   const handleChange = selectedLanguage => {
@@ -24,22 +36,24 @@ const Controls = props => {
     updateSearchText(event.target.value);
   }
 
-  const checkIsFirstIssue = isFirstIssue => {
-    updateIsFirstIssue(isFirstIssue.target.checked);
+  const handleLableChange = selectedLabel => {
+    updateSeleectedLabel(selectedLabel);
   }
 
   const showBookmarks = () => {
     if (isBookmark) {
       props.exploreProjects(isBookmark, {});
     } else {
-      props.exploreProjects(false, { stars, searchText, selectedLanguage, isFirstIssue })
+      props.exploreProjects(false, { stars, searchText, selectedLanguage, selectedLabel })
     }
 
     updateIsBookmark(!isBookmark);
 
   };
 
-  const handleSubmit = () => props.exploreProjects(false, { stars, searchText, selectedLanguage, isFirstIssue });
+  const handleSubmit = () => {
+    props.exploreProjects(false, { stars, searchText, selectedLanguage, selectedLabel })
+  };
 
   return (
     <div className="selector-container">
@@ -49,7 +63,7 @@ const Controls = props => {
             onChange={handleSearch}
           />
           <div className="row">
-            <div className="col-7">
+            <div className="col-6">
               <span>max stars:</span>
               <InputRange
                 maxValue={1000}
@@ -66,8 +80,13 @@ const Controls = props => {
                 options={languages}
               />
             </div>
-            <div className="col-2">
-              <CheckboxInput isFirstIssue={isFirstIssue} checkIsFirstIssue={checkIsFirstIssue} />
+            <div className="col-3">
+              <span>Label:</span>
+              <Select
+                value={selectedLabel}
+                onChange={handleLableChange}
+                options={labels}
+              />
             </div>
           </div>
         </div>

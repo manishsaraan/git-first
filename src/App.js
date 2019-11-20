@@ -12,10 +12,10 @@ class App extends Component {
     totalPages: 0,
     showBookmars: false,
     bookmarkedRepos: [],
-    isFirstIssue: false
+    selectedLabel: {}
   };
 
-  exploreProjects = (showBookmars, { stars, searchText, selectedLanguage, isFirstIssue }) => {
+  exploreProjects = (showBookmars, { stars, searchText, selectedLanguage, selectedLabel }) => {
     this.setState({ showLoader: true });
 
     // show locally saved repos
@@ -25,16 +25,15 @@ class App extends Component {
       if (bookmarkedRepos.length === 0) {
         bookmarkedRepos = JSON.parse(localStorage.getItem("savedRepos")) || [];
       }
-
-      this.setState({ showBookmars: true, bookmarkedRepos, showLoader: false, isFirstIssue });
+      const selectedLabelValue = JSON.parse(localStorage.getItem("user-pref")).selectedLabel || {};
+      this.setState({ showBookmars: true, bookmarkedRepos, showLoader: false, selectedLabel: selectedLabelValue });
 
       return;
     } else {
 
       fetchRepos(
-        { language: selectedLanguage.value, stars, searchText, isFirstIssue },
+        { language: selectedLanguage.value, stars, searchText, selectedLabel },
         response => {
-          console.log(response);
           const { total_count, items } = response;
           const totalPages = Math.ceil(total_count / 30);
 
@@ -43,10 +42,10 @@ class App extends Component {
             repos: items,
             totalPages,
             showBookmars: false,
-            isFirstIssue
+            selectedLabel
           });
 
-          saveUserPreference(stars, selectedLanguage.value);
+          saveUserPreference(stars, selectedLanguage.value, selectedLabel);
         }
       );
     }
@@ -55,7 +54,7 @@ class App extends Component {
   handleBookmark = (repo) => {
     let bookmarkedRepos = JSON.parse(localStorage.getItem("savedRepos")) || [];
     const findRepoIndex = bookmarkedRepos.findIndex(bRepo => bRepo.id === repo.id);
-    console.log(findRepoIndex);
+
     if (findRepoIndex > -1) {
       bookmarkedRepos.splice(findRepoIndex, 1);
     } else {
@@ -81,14 +80,14 @@ class App extends Component {
   }
 
   render() {
-    const { repos, showLoader, bookmarkedRepos, showBookmars,isFirstIssue } = this.state;
+    const { repos, showLoader, bookmarkedRepos, showBookmars, selectedLabel } = this.state;
     const showRepos = showBookmars ? bookmarkedRepos : repos;
 
     const reposHtml =
       showRepos.length === 0 ? (
         <div className="no-repos col-12">No Repositories</div>
       ) : (
-          showRepos.map(repo => <Repo repo={repo} isFirstIssue={isFirstIssue} isBookmarkedRepo={this.isBookmarkedRepo(repo)} handleBookmark={this.handleBookmark} key={repo.id} />)
+          showRepos.map(repo => <Repo repo={repo} selectedLabel={selectedLabel} isBookmarkedRepo={this.isBookmarkedRepo(repo)} handleBookmark={this.handleBookmark} key={repo.id} />)
         );
 
     return (

@@ -1,14 +1,15 @@
-import React from "react";
+import React, { memo } from "react";
 import dateFns from "date-fns";
 import bookmarked from '../assets/bookmarked.svg';
 import bookmark from '../assets/bookmark.svg';
 import externalLink from '../assets/external-link.svg';
 
-const Repo = ({ repo, handleBookmark, isBookmarkedRepo, isFirstIssue }) => {
+const Repo = ({ repo, handleBookmark, isBookmarkedRepo, selectedLabel }) => {
   let issuesLink = repo.html_url + '/issues';
 
-  if (isFirstIssue) {
-    issuesLink = issuesLink + '?q=is%3Aissue+is%3Aopen+label%3A"good+first+issue"';
+  if (selectedLabel) {
+    const issueType = selectedLabel.value === "good-first-issues" ? '?q=is%3Aissue+is%3Aopen+label%3A"good+first+issue"' : '?q=is%3Aissue+is%3Aopen+label%3A"help+wanted"'
+    issuesLink = issuesLink + issueType;
   }
 
   return (
@@ -108,4 +109,4 @@ const Repo = ({ repo, handleBookmark, isBookmarkedRepo, isFirstIssue }) => {
   );
 };
 
-export default Repo;
+export default memo(Repo);

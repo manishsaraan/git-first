@@ -107,6 +107,9 @@ body {
   margin-right: 10px;
 }
 
+.jumbotron {
+  border-radius: 0;
+}
 .issues a {
   color: #212529;
 }

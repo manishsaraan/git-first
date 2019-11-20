@@ -99,9 +99,7 @@ class App extends Component {
           <p>
             {" "}
             Repositories can be fetched based on <b>language</b>,{" "}
-            <span className="issue-badge badge badge-secondary">
-              good first issue
-            </span>{" "}
+            <b>label</b>{" "}
             and no of{" "}
             <svg
               viewBox="0 0 14 16"

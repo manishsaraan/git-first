@@ -1,7 +1,7 @@
 export const fetchRepos = ({ language, stars, searchText, selectedLabel }, cb) => {
   const apiUrl = "https://api.github.com/search/repositories";
 
-  let searchUrl = `${apiUrl}?q=${searchText}`;
+  let searchUrl = `${apiUrl}?q=${searchText.replace(/ /g, "+")}+in:readme`;
 
   if (language) {
     searchUrl += `+language:${language.toLowerCase()}`;

@@ -9,6 +9,9 @@
   <a href="https://github.com/manishsaraan/git-first/blob/master/license.md">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="license-mit" />
   </a>
+  <a href="https://app.netlify.com/sites/git-first/deploys">
+    <img src="https://api.netlify.com/api/v1/badges/94515c0c-61cd-4a83-a415-c818ede2c15c/deploy-status" alt="netlify deploy status" />
+  </a>
 </p>
 
 <p align="center">

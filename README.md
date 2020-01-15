@@ -1,5 +1,5 @@
 <h1 align="center">
-  	 GitFirst
+  	<img height="100" src="https://raw.github.com/manishsaraan/git-first/master/public/logo.png?sanitize=true" alt="GitFirst" /> <br> GitFirst
 </h1>
 
 <p align="center">

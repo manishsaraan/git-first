@@ -58,12 +58,12 @@ const Controls = props => {
   return (
     <div className="selector-container">
       <div className="row">
-        <div className="col-8 offset-md-1 controls-container">
+        <div className="col-md-8 offset-md-1 controls-container">
           <input className="search-box" type="text" neme="search" value={searchText} placeholder="Search..."
             onChange={handleSearch}
           />
           <div className="row">
-            <div className="col-6">
+            <div className="col-md-6">
               <span>max stars:</span>
               <InputRange
                 maxValue={1000}
@@ -72,7 +72,7 @@ const Controls = props => {
                 onChange={value => updateStars(value)}
               />
             </div>
-            <div className="col-3">
+            <div className="col-md-3 language-container">
               <span>language:</span>
               <Select
                 value={selectedLanguage}
@@ -80,7 +80,7 @@ const Controls = props => {
                 options={languages}
               />
             </div>
-            <div className="col-3">
+            <div className="col-md-3">
               <span>Label:</span>
               <Select
                 value={selectedLabel}
@@ -91,21 +91,23 @@ const Controls = props => {
           </div>
         </div>
 
-        <div className="col-1">
-          <button
-            className="btn btn-secondary btn-lg explore-button"
-            type="button"
-            id="search"
-            onClick={handleSubmit}
-            disabled={!isBookmark}
-          >
-            Explore
-          </button>
-        </div>
-        <div className="col-1">
-          <button className="btn btn-secondary btn-lg view-bookmarked-repos" onClick={showBookmarks}>
-            <img src={isBookmark ? bookmark : bookmarked} alt="show bookmarked" />
-          </button>
+        <div className="col-md-2 submit-button">
+          <div className="">
+            <button
+              className="btn btn-secondary btn-lg explore-button"
+              type="button"
+              id="search"
+              onClick={handleSubmit}
+              disabled={!isBookmark}
+            >
+              Explore
+            </button>
+          </div>
+          <div className="">
+            <button className="btn btn-secondary btn-lg view-bookmarked-repos" onClick={showBookmarks}>
+              <img src={isBookmark ? bookmark : bookmarked} alt="show bookmarked" />
+            </button>
+          </div>
         </div>
       </div>
     </div>

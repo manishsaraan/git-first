@@ -189,3 +189,27 @@ body {
 .controls-container .row {
   margin: 0
 }
+
+.submit-button{
+  display: flex;
+}
+
+@media only screen and (max-width: 767px) {
+  .search-box{
+    width: 93%;
+    margin-left: 3%;
+  }
+
+  .controls-container{
+    margin-bottom: 25px;
+  }
+
+  .submit-button {
+    display: flex;
+    margin-left: 4%;
+  }
+
+  .language-container{
+    margin: 18px 0 10px 0;
+  }
+}

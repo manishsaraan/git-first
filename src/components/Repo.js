@@ -13,7 +13,7 @@ const Repo = ({ repo, handleBookmark, isBookmarkedRepo, selectedLabel }) => {
   }
 
   return (
-    <div className="col-3 item-container">
+    <div className="col-md-3 item-container">
       <div className="repo-container ">
         <div className="profile-container">
           <div className="profile-image">

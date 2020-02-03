@@ -19,6 +19,10 @@
 </p>
 
 <p align="center">
+<a href="https://www.producthunt.com/posts/gitfirst?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-gitfirst" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=181377&theme=light" alt="GitFirst - Search GitHub projects with ease | Product Hunt Embed" style="width: 250px; height: 54px;" width="250px" height="54px" /></a>
+</p>
+
+<p align="center">
   <br><b>GitFirst</b> is a react application that lets you explore projects on GitHub and filter based on <b>language</b>,<b>stars</b> and <b>good first issue</b> label.
   <a href="https://git-first.netlify.com/">Visit Site</a>
 </p>
